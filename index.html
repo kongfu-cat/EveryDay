@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <title>Every Day</title>
+</head>
+<body>
+    <h3>Every Day</h3>
+    <div id="jobContainer"></div>
+</body>
+<script src="./meta.js"></script>
+<script>
+    console.log(META)
+    const jobContainerEl = document.getElementById('jobContainer')
+    const testMeta = META[0]
+    jobContainerEl.innerHTML = `
+        <h4>${testMeta.title}</h4>
+        <p>${(new Date(testMeta.date)).toString()}</p>
+        <p>${testMeta.description}</p>
+        <iframe src="./${testMeta.path}"></iframe>
+    `
+</script>
+</html>
