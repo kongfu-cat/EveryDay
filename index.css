@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.page-header{
+    line-height: 4em;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+#pageContent{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.job-item{
+    position: relative;
+    flex-grow: 1;
+    flex-shrink: 1;
+    box-sizing: border-box;
+    margin: 1em 2em;
+    padding: 1em;
+
+    border: 1px solid #808080;
+    border-radius: 4px;
+    flex-basis: 360px;
+}
+
+.job-title{
+    text-align: center;
+    margin: 4px 0;
+}
+
+.job-desc{
+    clear:both;
+    width: 100%;
+    text-indent: 1em;
+    margin: 4px auto;
+    font-size: 0.9em;
+}
+
+.job-date{
+    float: right;
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+.job-iframe{
+    display: block;
+    width: 100%;
+    border: 1px solid #888;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+.clearfix::after{
+    display: block;
+    content: '';
+    height: 0;
+    clear:both;
+    visibility: hidden;
+}

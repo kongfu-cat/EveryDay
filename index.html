@@ -4,22 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="index.css">
     <title>Every Day</title>
 </head>
 <body>
-    <h3>Every Day</h3>
-    <div id="jobContainer"></div>
+    <div class="page-header">
+        <h3>Every Day</h3>
+    </div>
+    <div class="page-content" id="pageContent">
+    </div>
 </body>
 <script src="./meta.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
 <script>
-    console.log(META)
-    const jobContainerEl = document.getElementById('jobContainer')
-    const testMeta = META[0]
-    jobContainerEl.innerHTML = `
-        <h4>${testMeta.title}</h4>
-        <p>${(new Date(testMeta.date)).toString()}</p>
-        <p>${testMeta.description}</p>
-        <iframe src="./${testMeta.path}"></iframe>
-    `
+    const pageContentEl = document.getElementById('pageContent')
+    pageContentEl.innerHTML = TEST_META.map(meta=>{
+        return `
+        <div class="job-item">
+            <h4 class="job-title">${meta.title}</h4>
+            <p class="job-date">${moment(meta.date).format('YYYY/MM/DD HH:mm')}</p>
+            <p class="job-desc">${meta.description}</p>
+            <iframe class="job-iframe" src="./${meta.path}"></iframe>
+        </div>
+    `}).join('')
 </script>
 </html>
