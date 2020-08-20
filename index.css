@@ -3,21 +3,21 @@
     padding: 0;
 }
 
-.page-header{
+.page-header {
     line-height: 4em;
     background-color: #333;
     color: #fff;
     text-align: center;
 }
 
-#pageContent{
+#pageContent {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
 }
 
-.job-item{
+.job-item {
     position: relative;
     flex-grow: 1;
     flex-shrink: 1;
@@ -30,26 +30,26 @@
     flex-basis: 360px;
 }
 
-.job-title{
+.job-title {
     text-align: center;
     margin: 4px 0;
 }
 
-.job-desc{
-    clear:both;
+.job-desc {
+    clear: both;
     width: 100%;
     text-indent: 1em;
     margin: 4px auto;
     font-size: 0.9em;
 }
 
-.job-date{
+.job-date {
     float: right;
     font-size: 0.8em;
     color: #aaa;
 }
 
-.job-iframe{
+.job-iframe {
     display: block;
     width: 100%;
     border: 1px solid #888;
@@ -57,10 +57,10 @@
     margin: 0 auto;
 }
 
-.clearfix::after{
+.clearfix::after {
     display: block;
     content: '';
     height: 0;
-    clear:both;
+    clear: both;
     visibility: hidden;
 }

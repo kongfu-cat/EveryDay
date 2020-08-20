@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="index.css">
-    <title>Every Day</title>
-</head>
-<body>
-    <div class="page-header">
-        <h3>Every Day</h3>
-    </div>
-    <div class="page-content" id="pageContent">
-    </div>
-</body>
-<script src="./meta.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
-<script>
-    const pageContentEl = document.getElementById('pageContent')
-    pageContentEl.innerHTML = TEST_META.map(meta=>{
-        return `
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="index.css" />
+        <title>Every Day</title>
+    </head>
+
+    <body>
+        <div class="page-header">
+            <h3>Every Day</h3>
+        </div>
+        <div class="page-content" id="pageContent"></div>
+    </body>
+    <script src="./meta.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+    <script>
+        const pageContentEl = document.getElementById('pageContent');
+        pageContentEl.innerHTML = TEST_META.map((meta) => {
+            return `
         <div class="job-item">
             <h4 class="job-title">${meta.title}</h4>
-            <p class="job-date">${moment(meta.date).format('YYYY/MM/DD HH:mm')}</p>
+            <p class="job-date">${moment(meta.date).format(
+                'YYYY/MM/DD HH:mm'
+            )}</p>
             <p class="job-desc">${meta.description}</p>
             <iframe class="job-iframe" src="./${meta.path}"></iframe>
         </div>
-    `}).join('')
-</script>
+    `;
+        }).join('');
+    </script>
 </html>
