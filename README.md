@@ -10,10 +10,15 @@
 
 ## Project Structure
 
+### Folder
+
 - *lib*: some third-party js libraries.
+- *test*: meta of job.
+- *asset*: images or other static asset.
+
+### Files
 
 - *year/month/xxx.html*: the job.
-
 - *meta.js*: meta of job.
 
 ## Some Good Websites
@@ -27,5 +32,7 @@
 ## Interesting OpenSource Project
 
 - **[repo-badges](https://github.com/dwyl/repo-badges)** add some badge image in markdown file
+
+- **[github-corners](https://github.com/tholman/github-corners)** github-corners, alternative github ribbons
 
 ## TO DO
