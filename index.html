@@ -51,17 +51,23 @@
     </body>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
     <script type="module">
-        import META from './test/meta.js';
+        import META from './meta.js';
         const pageContentEl = document.getElementById('pageContent');
         pageContentEl.innerHTML = META.map((meta) => {
             return `
         <div class="job-item">
-            <h4 class="job-title">${meta.title}</h4>
+            <h3 class="job-title"><a href="${meta.path}" target="_blank">${
+                meta.title
+            }</a></h3>
             <p class="job-date">${moment(meta.date).format(
                 'YYYY/MM/DD HH:mm'
             )}</p>
             <p class="job-desc">${meta.description}</p>
-            <iframe class="job-iframe" src="./${meta.path}"></iframe>
+            <div class="job-content">
+                <iframe class="job-iframe" src="${
+                    meta.path
+                }" border="none"></iframe>
+            </div>
         </div>
     `;
         }).join('');

@@ -1,12 +1,32 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Times New Roman', 'Arial', 'DoHyeon-Regular',
+        'Microsoft yahei', 'SimSun', 'MaShanZheng';
+}
+
+html,
+body {
+    font-size: 18px;
+}
+
+@font-face {
+    font-family: 'MaShanZheng';
+    src: url('/asset/font/MaShanZheng-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'DoHyeon-Regular';
+    src: url('/asset/font/DoHyeon-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Monaco';
+    src: url('/asset/font/monaco.ttf') format('truetype');
 }
 
 .page-header {
     line-height: 80px;
     background-color: #fff;
-    color: #333;
+    color: #151513;
     text-align: center;
 }
 
@@ -51,8 +71,7 @@
     margin: 1em 2em;
     padding: 1em;
 
-    border: 1px solid #808080;
-    border-radius: 4px;
+    border: 3px solid #151513;
     flex-basis: 360px;
 }
 
@@ -60,27 +79,38 @@
     text-align: center;
     margin: 4px 0;
 }
+.job-title a {
+    text-decoration: none;
+    color: #333;
+}
+.job-title a:hover {
+    color: #888;
+}
 
 .job-desc {
     clear: both;
     width: 100%;
     text-indent: 1em;
     margin: 4px auto;
-    font-size: 0.9em;
 }
 
 .job-date {
     float: right;
-    font-size: 0.8em;
-    color: #aaa;
+    color: #333;
+    font-family: 'Monaco';
 }
 
-.job-iframe {
+.job-content {
     display: block;
     width: 100%;
-    border: 1px solid #888;
-    border-radius: 4px;
+    height: 256px;
+    border: 2px dashed #151513;
     margin: 0 auto;
+}
+.job-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .clearfix::after {

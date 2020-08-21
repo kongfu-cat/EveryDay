@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Hello World</title>
+        <link rel="stylesheet" href="/asset/style/template.css" />
+    </head>
+    <body>
+        <div id="twoContainer" class="iframe-box"></div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/two.js@0.7.0-stable.1/build/two.min.js"></script>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const twoContainer = document.getElementById('twoContainer');
+        const two = new Two({
+            width: document.body.clientWidth,
+            height: document.body.clientHeight,
+        }).appendTo(twoContainer);
+        const msg = 'HELLO WORLD';
+        var characters = [];
+        var gravity = new Two.Vector(0, 0.66);
+        var styles = {
+            family: 'proxima-nova, sans-serif',
+            size: 50,
+            leading: 50,
+            weight: 900,
+        };
+
+        $(twoContainer).bind('click', () => {
+            msg.split('').forEach((i) => add(i));
+            two.remove(initText);
+        });
+
+        var initText = two.makeText(msg, two.width / 2, two.height / 2, {
+            family: 'proxima-nova, sans-serif',
+            size: 50,
+            leading: 50,
+            weight: 900,
+        });
+        two.add(initText);
+        two.bind('update', (frameCount) => {
+            for (var i = 0; i < characters.length; i++) {
+                var text = characters[i];
+                text.translation.addSelf(text.velocity);
+                text.rotation += text.velocity.r;
+
+                text.velocity.addSelf(gravity);
+                if (
+                    text.velocity.y > 0 &&
+                    text.translation.y > two.height - 20
+                ) {
+                    characters.splice(i, 1);
+                }
+            }
+            if (!characters.length) {
+                two.add(initText);
+            }
+        }).play();
+
+        function add(msg) {
+            var x = (Math.random() * two.width) / 2 + two.width / 4;
+            var y = two.height / 2;
+
+            var text = two.makeText(msg, x, y, styles);
+
+            text.velocity = new Two.Vector();
+            text.velocity.x = 20 * (0.5 - Math.random());
+            text.velocity.y = 10 * (0.2 - Math.random());
+            text.velocity.r = (Math.random() * Math.PI) / 8;
+
+            characters.push(text);
+        }
+    </script>
+</html>
