@@ -12,15 +12,15 @@ body {
 
 @font-face {
     font-family: 'MaShanZheng';
-    src: url('/asset/font/MaShanZheng-Regular.ttf') format('truetype');
+    src: url('./asset/font/MaShanZheng-Regular.ttf') format('truetype');
 }
 @font-face {
     font-family: 'DoHyeon-Regular';
-    src: url('/asset/font/DoHyeon-Regular.ttf') format('truetype');
+    src: url('./asset/font/DoHyeon-Regular.ttf') format('truetype');
 }
 @font-face {
     font-family: 'Monaco';
-    src: url('/asset/font/monaco.ttf') format('truetype');
+    src: url('./asset/font/monaco.ttf') format('truetype');
 }
 
 .page-header {
