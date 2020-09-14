@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Lotto</title>
+        <link rel="stylesheet" href="../../../../asset/style/template.css" />
+        <style>
+            .ball {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                border-radius: 40px;
+                background-color: beige;
+                text-align: center;
+                line-height: 40px;
+                color: #fff;
+                margin-left: 8px;
+            }
+            #red,
+            #blue {
+                display: inline-block;
+                margin: 0;
+            }
+            #red .ball {
+                background-color: red;
+            }
+            #blue .ball {
+                background-color: blue;
+            }
+            #btn {
+                width: 80px;
+                height: 32px;
+                font-size: 18px;
+                text-align: center;
+                line-height: 20px;
+                border-radius: 4px;
+                background-color: orange;
+                color: #000;
+                padding: 0;
+                outline: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="divContainer" class="iframe-box">
+            <span>双色球</span>
+            <div id="red"></div>
+            <div id="blue"></div>
+            <button id="btn">机选</button>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/lib-r-math.js@1.0.86/dist/lib/libR.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+    <script>
+        const libR = window.libR;
+        const {
+            Normal,
+            rng: {
+                SuperDuper,
+                normal: { AhrensDieter },
+            },
+            R: { numberPrecision, multiplex, seq: _seq },
+        } = libR;
+
+        console.log(libR);
+
+        const norm1 = Normal(
+            new AhrensDieter(new SuperDuper(Date.now().valueOf()))
+        );
+        const norm2 = Normal();
+        const { rnorm, dnorm, pnorm, qnorm } = norm1;
+        const seq = _seq()();
+        const _9 = numberPrecision(9); //9 digit significance
+        const DuotoneBallLottery = () => {
+            const q = seq(-1, 1);
+            const r1 = _9(rnorm(7));
+            const r2 = _9(rnorm(5, 17, 5.5));
+            const r3 = _9(rnorm(2, 8.5, 2.6));
+            document.getElementById('red').innerHTML = r2
+                .map((val) => `<div class="ball">${Math.round(val)}</div>`)
+                .join('');
+            document.getElementById('blue').innerHTML = r3
+                .map((val) => `<div class="ball">${Math.round(val)}</div>`)
+                .join('');
+        };
+
+        $('#btn').bind('click', () => {
+            console.log('click');
+            DuotoneBallLottery();
+        });
+
+        DuotoneBallLottery();
+    </script>
+</html>
