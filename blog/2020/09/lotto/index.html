@@ -6,6 +6,13 @@
         <title>Lotto</title>
         <link rel="stylesheet" href="../../../../asset/style/template.css" />
         <style>
+            #divContainer {
+                padding-top: 16px;
+            }
+            .lottery {
+                margin-bottom: 16px;
+                margin-left: 16px;
+            }
             .ball {
                 display: inline-block;
                 width: 40px;
@@ -17,18 +24,18 @@
                 color: #fff;
                 margin-left: 8px;
             }
-            #red,
-            #blue {
+            .red,
+            .blue {
                 display: inline-block;
                 margin: 0;
             }
-            #red .ball {
+            .red .ball {
                 background-color: red;
             }
-            #blue .ball {
+            .blue .ball {
                 background-color: blue;
             }
-            #btn {
+            .btn {
                 width: 80px;
                 height: 32px;
                 font-size: 18px;
@@ -44,17 +51,31 @@
     </head>
     <body>
         <div id="divContainer" class="iframe-box">
-            <span>双色球</span>
-            <div id="red"></div>
-            <div id="blue"></div>
-            <button id="btn">机选</button>
+            <div class="lottery" id="DuotoneBall">
+                <span>双色球</span>
+                <div class="red"></div>
+                <div class="blue"></div>
+                <button class="btn" lottery-type="DuotoneBall">机选</button>
+            </div>
+
+            <div class="lottery" id="SuperLotto">
+                <span>大乐透</span>
+                <div class="red"></div>
+                <div class="blue"></div>
+                <button class="btn" lottery-type="SuperLotto">机选</button>
+            </div>
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/lib-r-math.js@1.0.86/dist/lib/libR.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
     <script>
+        // FIXME: 数字重复，相似度有点高
         const libR = window.libR;
+        const LotteryType = {
+            DuotoneBall: 'DuotoneBall',
+            SuperLotto: 'SuperLotto',
+        };
         const {
             Normal,
             rng: {
@@ -73,24 +94,80 @@
         const { rnorm, dnorm, pnorm, qnorm } = norm1;
         const seq = _seq()();
         const _9 = numberPrecision(9); //9 digit significance
-        const DuotoneBallLottery = () => {
-            const q = seq(-1, 1);
-            const r1 = _9(rnorm(7));
-            const r2 = _9(rnorm(5, 17, 5.5));
-            const r3 = _9(rnorm(2, 8.5, 2.6));
-            document.getElementById('red').innerHTML = r2
-                .map((val) => `<div class="ball">${Math.round(val)}</div>`)
-                .join('');
-            document.getElementById('blue').innerHTML = r3
-                .map((val) => `<div class="ball">${Math.round(val)}</div>`)
-                .join('');
-        };
 
-        $('#btn').bind('click', () => {
-            console.log('click');
-            DuotoneBallLottery();
+        function DuotoneBall() {
+            const q = seq(-1, 1);
+            const r1 = _9(rnorm(6, 17, 5.5));
+            const r2 = _9(rnorm(1, 8.5, 2.6));
+            $('#DuotoneBall')
+                .children('.red')
+                .first()
+                .html(
+                    r1
+                        .map(
+                            (val) =>
+                                `<div class="ball">${Math.round(val)}</div>`
+                        )
+                        .join('')
+                );
+            $('#DuotoneBall')
+                .children('.blue')
+                .first()
+                .html(`<div class="ball">${Math.round(r2)}</div>`);
+        }
+
+        function SuperLotto() {
+            const q = seq(-1, 1);
+            const r1 = _9(rnorm(5, 18, 6));
+            const r2 = _9(rnorm(2, 6.5, 2.16));
+            $('#SuperLotto')
+                .children('.red')
+                .first()
+                .html(
+                    r1
+                        .map(
+                            (val) =>
+                                `<div class="ball">${Math.round(val)}</div>`
+                        )
+                        .join('')
+                );
+            $('#SuperLotto')
+                .children('.blue')
+                .first()
+                .html(
+                    r2
+                        .map(
+                            (val) =>
+                                `<div class="ball">${Math.round(val)}</div>`
+                        )
+                        .join('')
+                );
+        }
+
+        $('.btn').bind('click', function (event) {
+            event.stopPropagation();
+            console.log('click', event);
+            const lotteryType = event.currentTarget.getAttribute(
+                'lottery-type'
+            );
+            console.log(lotteryType);
+            switch (lotteryType) {
+                case LotteryType.DuotoneBall:
+                    {
+                        DuotoneBall();
+                    }
+                    break;
+                case LotteryType.SuperLotto:
+                    {
+                        SuperLotto();
+                    }
+                    break;
+                default:
+                    break;
+            }
         });
 
-        DuotoneBallLottery();
+        DuotoneBall();
+        SuperLotto();
     </script>
 </html>
