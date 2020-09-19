@@ -70,76 +70,93 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
     <script>
-        // FIXME: 数字重复，相似度有点高
-        const libR = window.libR;
         const LotteryType = {
             DuotoneBall: 'DuotoneBall',
             SuperLotto: 'SuperLotto',
         };
-        const {
-            Normal,
-            rng: {
-                SuperDuper,
-                normal: { AhrensDieter },
-            },
-            R: { numberPrecision, multiplex, seq: _seq },
-        } = libR;
 
-        console.log(libR);
-
-        const norm1 = Normal(
-            new AhrensDieter(new SuperDuper(Date.now().valueOf()))
-        );
-        const norm2 = Normal();
-        const { rnorm, dnorm, pnorm, qnorm } = norm1;
-        const seq = _seq()();
-        const _9 = numberPrecision(9); //9 digit significance
-
+        function randomInt(min, max, seq = 1, unique = true) {
+            const res = [];
+            // Math.random(): [0, 1) 注意不包括 1
+            max = max + 1;
+            while (res.length < seq) {
+                const val = parseInt(Math.random() * (max - min) + min);
+                if (!unique || (unique && res.indexOf(val) === -1)) {
+                    res.push(val);
+                }
+            }
+            return res;
+        }
+        // 测试概率分布是否平均，基本平均
+        function randomIntTest() {
+            const res = {};
+            const times = 100000;
+            for (let i = 0; i < times; i++) {
+                const val = randomInt(0, 9);
+                res[val] = res[val] === undefined ? 0 : res[val] + 1;
+            }
+            Reflect.ownKeys(res).forEach((key) => {
+                console.log(
+                    `${key}: (${res[key]}/${times}) ${(
+                        (res[key] / times) *
+                        100
+                    ).toFixed(2)} %`
+                );
+            });
+        }
+        // randomIntTest();
         function DuotoneBall() {
-            const q = seq(-1, 1);
-            const r1 = _9(rnorm(6, 17, 5.5));
-            const r2 = _9(rnorm(1, 8.5, 2.6));
+            const redBallSeq = randomInt(1, 33, 6);
+            const blueBallSeq = randomInt(1, 16, 1);
             $('#DuotoneBall')
                 .children('.red')
                 .first()
                 .html(
-                    r1
-                        .map(
-                            (val) =>
-                                `<div class="ball">${Math.round(val)}</div>`
-                        )
+                    redBallSeq
+                        .map((val) => `<div class="ball">${val}</div>`)
                         .join('')
                 );
             $('#DuotoneBall')
                 .children('.blue')
                 .first()
-                .html(`<div class="ball">${Math.round(r2)}</div>`);
+                .html(
+                    blueBallSeq
+                        .map((val) => `<div class="ball">${val}</div>`)
+                        .join('')
+                );
+        }
+        // 中奖测试
+        function DuotoneBallTest() {
+            let count = 0;
+            let test = '';
+            const ok = '1-9-11-12-16-19+16';
+            do {
+                const redBallSeq = randomInt(1, 33, 6).sort((a, b) => a - b);
+                const blueBallSeq = randomInt(1, 16, 1);
+                test = `${redBallSeq.join('-')}+${blueBallSeq[0]}`;
+                count++;
+                console.log(`${ok} vs ${test}`);
+            } while (test != ok);
+            console.log(count);
         }
 
         function SuperLotto() {
-            const q = seq(-1, 1);
-            const r1 = _9(rnorm(5, 18, 6));
-            const r2 = _9(rnorm(2, 6.5, 2.16));
+            const redBallSeq = randomInt(1, 35, 5);
+            const blueBallSeq = randomInt(1, 12, 2);
             $('#SuperLotto')
                 .children('.red')
                 .first()
                 .html(
-                    r1
-                        .map(
-                            (val) =>
-                                `<div class="ball">${Math.round(val)}</div>`
-                        )
+                    redBallSeq
+                        .map((val) => `<div class="ball">${val}</div>`)
                         .join('')
                 );
             $('#SuperLotto')
                 .children('.blue')
                 .first()
                 .html(
-                    r2
-                        .map(
-                            (val) =>
-                                `<div class="ball">${Math.round(val)}</div>`
-                        )
+                    blueBallSeq
+                        .map((val) => `<div class="ball">${val}</div>`)
                         .join('')
                 );
         }
