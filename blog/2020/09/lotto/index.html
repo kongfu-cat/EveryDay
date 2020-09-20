@@ -64,6 +64,9 @@
                 <div class="blue"></div>
                 <button class="btn" lottery-type="SuperLotto">机选</button>
             </div>
+
+            <button class="btn" id="runBtn">RUN</button>
+            <button class="btn" id="stopBtn">STOP</button>
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/lib-r-math.js@1.0.86/dist/lib/libR.min.js"></script>
@@ -106,8 +109,8 @@
         }
         // randomIntTest();
         function DuotoneBall() {
-            const redBallSeq = randomInt(1, 33, 6);
-            const blueBallSeq = randomInt(1, 16, 1);
+            const redBallSeq = randomInt(1, 33, 6).sort((a, b) => a - b);
+            const blueBallSeq = randomInt(1, 16, 1).sort((a, b) => a - b);
             $('#DuotoneBall')
                 .children('.red')
                 .first()
@@ -141,8 +144,8 @@
         }
 
         function SuperLotto() {
-            const redBallSeq = randomInt(1, 35, 5);
-            const blueBallSeq = randomInt(1, 12, 2);
+            const redBallSeq = randomInt(1, 35, 5).sort((a, b) => a - b);
+            const blueBallSeq = randomInt(1, 12, 2).sort((a, b) => a - b);
             $('#SuperLotto')
                 .children('.red')
                 .first()
@@ -161,7 +164,7 @@
                 );
         }
 
-        $('.btn').bind('click', function (event) {
+        $('.lottery .btn').bind('click', function (event) {
             event.stopPropagation();
             console.log('click', event);
             const lotteryType = event.currentTarget.getAttribute(
@@ -186,5 +189,27 @@
 
         DuotoneBall();
         SuperLotto();
+
+        let timer = undefined;
+        let intervalCnt = 0;
+        $('#runBtn').bind('click', () => {
+            if (timer) {
+                clearInterval(timer);
+            }
+            timer = setInterval(() => {
+                DuotoneBall();
+                SuperLotto();
+                intervalCnt++;
+                if (intervalCnt >= 888) {
+                    intervalCnt = 0;
+                    clearInterval(timer);
+                }
+            }, 8);
+        });
+        $('#stopBtn').bind('click', () => {
+            if (timer) {
+                clearInterval(timer);
+            }
+        });
     </script>
 </html>
