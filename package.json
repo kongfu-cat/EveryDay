@@ -1,0 +1,14 @@
+{
+  "name": "EveryDay",
+  "version": "1.0.0",
+  "description": "study everyday",
+  "main": "index.js",
+  "repository": "https://github.com/kongfu-cat/EveryDay.git",
+  "author": "Leye Hu <huleye@outlook.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3"
+  }
+}
